@@ -2,7 +2,7 @@
 
 Animação de boas-vindas para o login do **Linux Mint (Cinnamon)**.
 
-Ao entrar com a senha, um `hello world` é digitado no terminal, um **"Hello World" grande** aparece no meio da tela e, a partir dele, "hello world" em dezenas de idiomas surge e se encaixa na superfície de um **globo girando**, feito só de palavras. Depois o globo se abre, some em fade e a área de trabalho aparece normalmente.
+Ao entrar com a senha, um `hello world` é digitado no terminal, um **"Hello World" grande** aparece no meio da tela e, a partir dele, "hello world" em dezenas de idiomas surge e se encaixa na superfície de um **globo girando**, feito só de palavras. O globo continua girando até você apertar **Enter**; então ele se abre, some em fade e a área de trabalho aparece normalmente.
 
 ## Requisitos
 
@@ -26,7 +26,7 @@ O script instala as dependências, copia o `hello_globo.py` para `~/.local/share
 python3 ~/.local/share/hello-globo/hello_globo.py
 ```
 
-Dá para pular a animação com **Esc** ou com um clique.
+A animação fica na tela girando até você apertar **Enter** (ou o Enter do teclado numérico).
 
 ## Remover
 
@@ -42,10 +42,12 @@ No topo do `hello_globo.py` há algumas constantes:
 |---|---|
 | `T_TITULO` | Tempo do "Hello World" grande no meio da tela |
 | `T_ENTRADA` | Tempo das palavras saindo do título e formando o globo |
-| `T_GIRA` | Tempo do globo girando |
+| `T_FADE` | Tempo do fade quando você aperta Enter |
 | `VEL_GIRO` | Velocidade do giro |
 | `INCLINACAO` | Inclinação do eixo do globo |
 | `ESPACO_LINHAS` | Distância entre as linhas de texto. Aumente (ex.: `3.6`) se estiver pesado no seu PC |
+| `TECLAS_SAIR` | Teclas que fecham a animação (padrão: `Enter` e `Enter` do teclado numérico) |
+| `MOSTRAR_DICA` / `DICA` | A dica discreta no rodapé depois que o globo se forma |
 
 Para ver quantos quadros por segundo você está tendo:
 
@@ -56,6 +58,8 @@ GLOBO_DEBUG=1 python3 ~/.local/share/hello-globo/hello_globo.py
 ## Como funciona
 
 Cada letra é um item de um `Canvas` do Tkinter posicionado em uma esfera 3D (linhas de latitude, eixo inclinado). A cada quadro, a esfera é girada, projetada na tela e iluminada, e só o lado virado para você é desenhado. O visual é todo feito em Python puro, sem bibliotecas externas.
+
+O globo não é montado de uma vez: as letras são criadas em pequenas fatias durante a digitação do terminal, então a janela abre imediatamente e não trava no começo da animação.
 
 ## Licença
 
